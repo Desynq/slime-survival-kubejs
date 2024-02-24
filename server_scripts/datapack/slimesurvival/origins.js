@@ -1,4 +1,4 @@
-// priority 10
+// priority 100
 
 global.origins = [];
 
@@ -58,6 +58,7 @@ new Origin(
 	[
 		'slimesurvival:origins/arachnid/wall-climbing',
 		'slimesurvival:origins/arachnid/fragile',
+		'slimesurvival:origins/arachnid/poison-resistance',
 	],
 	{
 		item: 'minecraft:cobweb'
