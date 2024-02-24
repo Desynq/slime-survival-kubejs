@@ -19,7 +19,7 @@ function generateBlockCollisionCondition(offset, blockCondition) {
 
 
 /** decided to use snake_case here since it reads nicer */
-const climbing_conditions = {};
+let climbing_conditions = {};
 climbing_conditions.power_toggled_on = {
 	type: 'origins:power_active',
 	power: '*:*_toggle'
@@ -77,7 +77,7 @@ climbing_conditions.colliding_with_block = {
 
 
 
-const wallClimbingPowerJson = {
+let powerJson = {
 	name: 'Wall Climbing',
 	description: 'You can climb on walls as long as they\'re made of solid, tangible materials',
 
@@ -105,9 +105,7 @@ const wallClimbingPowerJson = {
 	}
 };
 
-const power = new ApoliPower(
+new ApoliPower(
 	'slimesurvival:powers/origins/arachnid/wall-climbing.json',
-	wallClimbingPowerJson
+	powerJson
 );
-
-JsonIO.write('kubejs/generated/temp.json', power.getJson());
