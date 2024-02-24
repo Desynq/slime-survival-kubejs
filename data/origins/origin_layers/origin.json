@@ -1,0 +1,14 @@
+{
+	"loading_priority": 0,
+	"replace": true,
+	"order": 0,
+	"enabled": true,
+	"origins": [
+		"slimesurvival:arachnid"
+	],
+	"allow_random": true,
+	"exclude_random": [
+	],
+	"allow_random_unchoosable": false,
+	"hidden": false
+}

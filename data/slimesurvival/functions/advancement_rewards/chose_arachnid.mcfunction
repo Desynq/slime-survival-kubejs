@@ -1,0 +1,1 @@
+script run signal_event('player_chooses_origin', p, 'slimesurvival:arachnid');

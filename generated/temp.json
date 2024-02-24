@@ -1,0 +1,92 @@
+{
+	"name": "Wall Climbing",
+	"description": "You can climb on walls as long as they're made of solid, tangible materials",
+	"type": "origins:multiple",
+	"toggle": {
+		"type": "origins:toggle",
+		"key": {
+			"key": "key.origins.primary_active",
+			"continuous": false
+		}
+	},
+	"climbing": {
+		"type": "origins:climbing",
+		"condition": {
+			"type": "origins:and",
+			"conditions": [
+				{
+					"type": "origins:power_active",
+					"power": "*:*_toggle"
+				},
+				{
+					"inverted": true,
+					"type": "origins:creative_flying"
+				},
+				{
+					"inverted": true,
+					"type": "origins:or",
+					"conditions": [
+						{
+							"type": "origins:block_collision",
+							"offset_x": 0.01,
+							"offset_z": 0.01,
+							"block_condition": {
+								"type": "origins:in_tag",
+								"tag": "slimesurvival:arachnid_cannot_climb"
+							}
+						},
+						{
+							"type": "origins:block_collision",
+							"offset_x": -0.01,
+							"offset_z": -0.01,
+							"block_condition": {
+								"type": "origins:in_tag",
+								"tag": "slimesurvival:arachnid_cannot_climb"
+							}
+						}
+					]
+				},
+				{
+					"type": "origins:or",
+					"conditions": [
+						{
+							"type": "origins:and",
+							"conditions": [
+								{
+									"type": "origins:sneaking",
+									"inverted": true
+								},
+								{
+									"type": "origins:collided_horizontally"
+								}
+							]
+						},
+						{
+							"type": "origins:and",
+							"conditions": [
+								{
+									"type": "origins:sneaking"
+								},
+								{
+									"type": "origins:or",
+									"conditions": [
+										{
+											"type": "origins:block_collision",
+											"offset_x": 0.01,
+											"offset_z": 0.01
+										},
+										{
+											"type": "origins:block_collision",
+											"offset_x": -0.01,
+											"offset_z": -0.01
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	}
+}

@@ -1,0 +1,25 @@
+{
+	"display": {
+		"icon": {
+			"item": "minecraft:rotten_flesh"
+		},
+		"title": "Origin: Ghoul",
+		"description": "",
+		"background": "minecraft:textures/block/fire_coral_block.png",
+		"frame": "task",
+		"show_toast": true,
+		"announce_to_chat": false,
+		"hidden": false
+	},
+	"criteria": {
+		"Choose Ghoul": {
+			"trigger": "origins:chose_origin",
+			"conditions": {
+				"origin": "slimesurvival:ghoul"
+			}
+		}
+	},
+	"rewards": {
+		"function": "slimesurvival:advancement_rewards/chose_ghoul"
+	}
+}

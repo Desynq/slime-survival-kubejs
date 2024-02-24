@@ -1,0 +1,58 @@
+{
+	"display": {
+		"icon": {
+			"item": "minecraft:blaze_powder"
+		},
+		"title": "Flammable                                                       ",
+		"description": [
+			"",
+			{
+				"text": "Your body is mostly composed of a flammable, oily substance that is difficult to cover with fire resistant effects without also stopping the regeneration of new, non-fire-resistant cells.",
+				"color": "dark_purple",
+				"italic": true
+			},
+			{
+				"text": "\n-------------------------------",
+				"color": "gray"
+			},
+			{
+				"text": "\n+200% total fire-related damage",
+				"color": "red"
+			},
+			{
+				"text": "\n\n-50% total fire resistance effect duration",
+				"color": "red"
+			},
+			{
+				"text": "\n\nFire resistance effect disables natural regeneration",
+				"color": "red"
+			}
+		],
+		"frame": "goal",
+		"show_toast": true,
+		"announce_to_chat": false,
+		"hidden": false
+	},
+	"criteria": {
+		"§9> Unlocked by default": {
+			"trigger": "minecraft:tick",
+			"conditions": {
+				"player": [
+					{
+						"condition": "minecraft:entity_properties",
+						"entity": "this",
+						"predicate": {
+							"type_specific": {
+								"type": "player",
+								"advancements": {
+									"slimesurvival:origins/sludge/root": true
+								}
+							}
+						}
+					}
+				]
+			}
+		}
+	},
+	"parent": "slimesurvival:origins/sludge/root"
+}
