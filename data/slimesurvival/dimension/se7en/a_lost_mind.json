@@ -1,0 +1,18 @@
+{
+	"type": "slimesurvival:se7en/a_lost_mind",
+	"generator": {
+		"type": "minecraft:flat",
+		"settings": {
+			"biome": "minecraft:the_void",
+			"lakes": false,
+			"features": false,
+			"layers": [
+				{
+					"block": "minecraft:air",
+					"height": 1
+				}
+			],
+			"structure_overrides": []
+		}
+	}
+}

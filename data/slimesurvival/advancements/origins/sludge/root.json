@@ -1,0 +1,26 @@
+{
+	"display": {
+		"icon": {
+			"item": "minecraft:player_head",
+			"nbt": "{\"SkullOwner\":\"MHF_Slime\"}"
+		},
+		"title": "Origin: Sludge",
+		"description": "",
+		"background": "minecraft:textures/block/slime_block.png",
+		"frame": "task",
+		"show_toast": true,
+		"announce_to_chat": false,
+		"hidden": false
+	},
+	"criteria": {
+		"Choose Sludge": {
+			"trigger": "origins:chose_origin",
+			"conditions": {
+				"origin": "slimesurvival:sludge"
+			}
+		}
+	},
+	"rewards": {
+		"function": "slimesurvival:advancement_rewards/chose_sludge"
+	}
+}

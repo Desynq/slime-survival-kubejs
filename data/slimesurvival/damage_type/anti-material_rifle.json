@@ -1,0 +1,7 @@
+{
+	"exhaustion": 0.0,
+	"message_id": "anti-material_rifle",
+	"scaling": "never",
+	"effects": "hurt",
+	"death_message_type": "default"
+}

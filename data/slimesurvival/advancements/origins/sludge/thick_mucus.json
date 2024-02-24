@@ -1,0 +1,48 @@
+{
+	"display": {
+		"icon": {
+			"item": "minecraft:iron_chestplate"
+		},
+		"title": "Thick Mucus                                                     ",
+		"description": [
+			{
+				"text": "Your thick, gelatinous flesh is very dense and can sustain more damage",
+				"color": "dark_aqua"
+			},
+			{
+				"text": "\n\n+100% (Total) Max Health",
+				"color": "blue"
+			},
+			{
+				"text": "\n\nUnlocked by default",
+				"color": "gold"
+			}
+		],
+		"frame": "goal",
+		"show_toast": true,
+		"announce_to_chat": false,
+		"hidden": false
+	},
+	"criteria": {
+		"§9> Unlocked by default": {
+			"trigger": "minecraft:tick",
+			"conditions": {
+				"player": [
+					{
+						"condition": "minecraft:entity_properties",
+						"entity": "this",
+						"predicate": {
+							"type_specific": {
+								"type": "player",
+								"advancements": {
+									"slimesurvival:origins/sludge/root": true
+								}
+							}
+						}
+					}
+				]
+			}
+		}
+	},
+	"parent": "slimesurvival:origins/sludge/root"
+}

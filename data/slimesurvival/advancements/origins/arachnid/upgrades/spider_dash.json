@@ -1,0 +1,76 @@
+{
+	"display": {
+		"icon": {
+			"item": "minecraft:firework_rocket"
+		},
+		"title": "Spider Dash                                                  ",
+		"description": [
+			"",
+			{
+				"text": "You can dash forward",
+				"color": "gray",
+				"italic": true
+			},
+			{
+				"text": "\n-------------------------------",
+				"color": "dark_gray"
+			},
+			{
+				"text": "\n> You can dash forward using ",
+				"color": "yellow"
+			},
+			{
+				"text": "/race macro spider_dash",
+				"color": "gray",
+				"underlined": true
+			},
+			{
+				"text": "\n > Dashing accelerates you by ",
+				"color": "blue"
+			},
+			{
+				"text": "15 × movementSpeedAttribute",
+				"color": "aqua",
+				"underlined": true
+			},
+			{
+				"text": " (I.e., 30 blocks per second at default movement speed)",
+				"color": "blue"
+			},
+			{
+				"text": "\n > You can only dash while on the ground",
+				"color": "red"
+			},
+			{
+				"text": "\n > Cooldown of 5 seconds",
+				"color": "red"
+			}
+		],
+		"frame": "task",
+		"show_toast": true,
+		"announce_to_chat": false,
+		"hidden": false
+	},
+	"criteria": {
+		"> Cost: $1,500": {
+			"trigger": "minecraft:impossible"
+		},
+		"> Sprint a total of 500 blocks in one life": {
+			"trigger": "minecraft:tick",
+			"conditions": {
+				"player": [
+					{
+						"condition": "minecraft:entity_scores",
+						"entity": "this",
+						"scores": {
+							"player.since_death.centimeters_sprinted": {
+								"min": 50000
+							}
+						}
+					}
+				]
+			}
+		}
+	},
+	"parent": "slimesurvival:origins/arachnid/feral_movement"
+}
