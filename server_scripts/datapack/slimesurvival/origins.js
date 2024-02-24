@@ -56,7 +56,8 @@ Origin.prototype.getOriginId = function() {
 new Origin(
 	'slimesurvival:origins/arachnid.json',
 	[
-		'slimesurvival:origins/arachnid/wall-climbing'
+		'slimesurvival:origins/arachnid/wall-climbing',
+		'slimesurvival:origins/arachnid/fragile',
 	],
 	{
 		item: 'minecraft:cobweb'
