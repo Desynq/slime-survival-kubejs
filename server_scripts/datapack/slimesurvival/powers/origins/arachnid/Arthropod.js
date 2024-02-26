@@ -4,7 +4,7 @@
 
 let powerJson = {
 	name: 'Arthropod',
-	description: 'Spiders are arthropods, guess what you basically are?',
+	description: 'You are classified as an arthropod. The most notable effect of this is that bane of arthropods will royally fuck you up and slow you down.',
 
 	type: 'origins:entity_group',
 	group: 'arthropod'
