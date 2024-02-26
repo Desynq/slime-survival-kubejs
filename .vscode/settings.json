@@ -1,6 +1,0 @@
-{
-	"workbench.iconTheme": "material-icon-theme",
-	"files.exclude": {
-		"**/probe": true
-	}
-}
