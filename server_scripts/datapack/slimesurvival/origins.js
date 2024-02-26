@@ -59,6 +59,8 @@ new Origin(
 		'slimesurvival:origins/arachnid/wall-climbing',
 		'slimesurvival:origins/arachnid/fragile',
 		'slimesurvival:origins/arachnid/poison-resistance',
+		'slimesurvival:origins/arachnid/silky-smooth',
+		'origins:no_cobweb_slowdown',
 	],
 	{
 		item: 'minecraft:cobweb'

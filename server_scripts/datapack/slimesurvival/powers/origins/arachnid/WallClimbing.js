@@ -79,7 +79,7 @@ climbing_conditions.colliding_with_block = {
 
 let powerJson = {
 	name: 'Wall Climbing',
-	description: 'You can climb on walls as long as they\'re made of solid, tangible materials',
+	description: 'You can climb on walls as long as they\'re made of solid, tangible materials.',
 
 	type: 'origins:multiple',
 
