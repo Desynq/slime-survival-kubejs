@@ -59,12 +59,15 @@ new Origin(
 		'slimesurvival:origins/arachnid/wall-climbing',
 		'slimesurvival:origins/arachnid/fragile',
 		'slimesurvival:origins/arachnid/poison-resistance',
+		'slimesurvival:origins/arachnid/silky-smooth',
+		'slimesurvival:origins/arachnid/arthropod',
+		'origins:no_cobweb_slowdown',
 	],
 	{
 		item: 'minecraft:cobweb'
 	},
 	4,
-	0,
+	2,
 	'Arachnid',
 	'does whatever a spider can'
 );
