@@ -5,14 +5,14 @@
  */
 function CreateStringSpell() {}
 
-CreateStringSpell.prototype.MANA_COST = 50;
+CreateStringSpell.prototype.MANA_COST = 100;
 
 /**
  * @param {Internal.CommandContext<Internal.CommandSourceStack>} context
  */
 CreateStringSpell.prototype.cast = function(context) {
 	const { source } = context;
-	const { player } = source;
+	const { player, server } = source;
 	const playerManaSystem = new PlayerManaSystem(player);
 
 
@@ -27,6 +27,6 @@ CreateStringSpell.prototype.cast = function(context) {
 
 	player.give(Item.of('minecraft:string'));
 
-	player.playSound('minecraft:entity.item.pickup', 2, 1);
+	server.runCommandSilent(`execute at ${player.username} run playsound minecraft:entity.item.pickup master @a[distance=0..] ~ ~ ~ 1 1`);
 	player.tell('You created 1x String.');
 };
