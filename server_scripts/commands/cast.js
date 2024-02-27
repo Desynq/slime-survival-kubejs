@@ -4,32 +4,6 @@
 
 
 
-/**
- * @param {Internal.CommandContext<Internal.CommandSourceStack>} context
- */
-function castCreateString(context) {
-	const {source} = context;
-	const {player} = source;
-
-	let currentMana = player.persistentData.current_mana ?? 0;
-
-	if (currentMana < 50) {
-		player.tell(Text.red('You do not have enough mana to create string'));
-		return 0;
-	}
-
-	currentMana -= 50;
-	player.persistentData.current_mana = currentMana;
-
-	player.give(Item.of('minecraft:string'));
-
-	player.tell('you create string');
-};
-
-
-
-
-
 
 ServerEvents.commandRegistry(event => {
 	const { commands: Commands, arguments: Arguments } = event;
@@ -48,7 +22,7 @@ ServerEvents.commandRegistry(event => {
 
 				switch (spellType) {
 					case 'create_string':
-						castCreateString(context);
+						new CreateStringSpell().cast(context);
 						return 1;
 				};
 				return 0;
@@ -56,11 +30,3 @@ ServerEvents.commandRegistry(event => {
 		)
 	);
 });
-
-
-
-
-// .suggests((context, builder) => {
-// 	builder.suggest('create_string')
-// 	return builder.buildFuture()
-// });
