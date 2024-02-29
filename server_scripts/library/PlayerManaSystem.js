@@ -1,4 +1,4 @@
-// priority: 100000
+// priority: 1000
 
 
 
@@ -8,35 +8,113 @@
  */
 function PlayerManaSystem(player) {
 	this.player = player;
+	this.origin = OriginsLibrary.getOriginIdentifier(this.player);
+	/**
+	 * Arachnids use hunger for mana
+	 */
+	this.isArachnid = this.origin === 'slimesurvival:arachnid';
 }
 
 
 
+PlayerManaSystem.prototype.MAX_HUNGER = 20;
+PlayerManaSystem.prototype.MAX_SATURATION = 20;
+PlayerManaSystem.prototype.ARACHNID_MANA_COEFFICIENT = 5;
+
+
+
+
+/**
+ * @returns {number}
+ */
 PlayerManaSystem.prototype.getCurrentMana = function() {
-	return this.player.persistentData.current_mana ?? 0;
+	const { player } = this;
+	if (this.isArachnid) {
+		return (player.foodLevel + player.saturation) * this.ARACHNID_MANA_COEFFICIENT;
+	}
+	return player.persistentData.current_mana ?? 0;
 };
 
+/**
+ * @returns {number}
+ */
 PlayerManaSystem.prototype.getMaxMana = function() {
+	if (this.isArachnid) {
+		return (this.MAX_HUNGER + this.MAX_SATURATION) * this.ARACHNID_MANA_COEFFICIENT;
+	}
 	return this.player.attributes.getValue('slimesurvival:max_mana');
 };
 
+/**
+ * @returns {number}
+ */
 PlayerManaSystem.prototype.getPassiveManaRegenRate = function () {
 	return this.player.attributes.getValue('slimesurvival:passive_mana_regen_rate');
 };
 
 
 
+/**
+ * @param {number} newAmount
+ * @returns {void}
+ */
 PlayerManaSystem.prototype.updateMana = function(newAmount) {
-	this.player.persistentData.current_mana = newAmount;
+	const { player } = this;
+	if (this.isArachnid) {
+		/**
+		 * The arachnid mana system is kind of complex, so we're just deferring it to a helper function entirely
+		 */
+		this.arachnidUpdateMana(newAmount);
+		return;
+	}
+	player.persistentData.current_mana = newAmount;
+};
+
+/**
+ * @param {number} newAmount
+ * @returns {void}
+ */
+PlayerManaSystem.prototype.arachnidUpdateMana = function(newAmount) {
+	const { player } = this;
+
+	let newAmountAsFood = Math.floor(newAmount / this.ARACHNID_MANA_COEFFICIENT);
+	let totalFood = player.foodLevel + player.saturation;
+
+	/**
+	 * No need to perform a change in hunger if there is no change in the first place
+	 */
+	if (totalFood === newAmountAsFood) return;
+	/**
+	 * If food is lower than new amount:
+	 * TODO: still haven't figured out the best way of doing artificial hunger regeneration using mana
+	 */
+	if (totalFood < newAmountAsFood) {
+		return;
+	}
+	/**
+	 * If food is higher than new amount:
+	 * * Decrease saturation first until exhausted or 0, then decrease hunger until exhausted or 0
+	 */
+	if (totalFood > newAmountAsFood) {
+		player.saturation = SMath.clamp(newAmountAsFood - 20, 0, 20);
+		player.foodLevel = SMath.clamp(newAmountAsFood - player.saturation, 0, 20);
+	}
 };
 
 
 
 
 
+
+
+/**
+ * @returns {void}
+*/
 PlayerManaSystem.prototype.applyPassiveManaRegen = function() {
-	const maxMana = this.getMaxMana();
 	const passiveManaRegenRate = this.getPassiveManaRegenRate();
+	if (passiveManaRegenRate <= 0) return; // no point in regenerating mana if you can't in the first place
+
+	const maxMana = this.getMaxMana();
 	let currentMana = this.getCurrentMana();
 
 	if (currentMana < maxMana) {
