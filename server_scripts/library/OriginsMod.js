@@ -71,16 +71,4 @@ OriginsLibrary.getPowerResourceValue = function(entity, powerId) {
 	return 0;
 };
 
-
-
-
-
-
-
-PlayerEvents.tick(event => {
-	const {player} = event;
-	let value = OriginsLibrary.getPowerResourceValue(player, 'slimesurvival:origins/arachnid/mana-bar');
-	player.tell(value);
-});
-
 // TODO: Add setPowerResourceValue(), setPowerResourceMaximum(), and setPowerResourceMinimum()
