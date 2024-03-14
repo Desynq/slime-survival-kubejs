@@ -4,7 +4,8 @@
 	"order": 0,
 	"enabled": true,
 	"origins": [
-		"slimesurvival:arachnid"
+		"slimesurvival:arachnid",
+		"slimesurvival:sludge"
 	],
 	"allow_random": true,
 	"exclude_random": [

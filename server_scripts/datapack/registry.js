@@ -1,12 +1,17 @@
 // priority: 1
 
 ServerEvents.highPriorityData(event => {
-	global.powers.forEach(power => {
+	/**
+	 * @see ApoliPower
+	 */
+	ApoliPower.instances.forEach(power => {
 		event.addJson(power.getResourceLocation(), power.getJson());
 	});
 
-	/** @see global.origins */
-	global.origins.forEach(origin => {
+	/**
+	 * @see Origin
+	 */
+	Origin.instances.forEach(origin => {
 		event.addJson(origin.getResourceLocation(), origin.getJson());
 	});
 });
