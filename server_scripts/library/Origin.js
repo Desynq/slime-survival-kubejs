@@ -13,6 +13,7 @@
  * @param {number} impact
  * @param {string} name
  * @param {string} description
+ * @constructor
  */
 function Origin(resourceLocation, defaultPowers, icon, order, impact, name, description) {
 	this.resourceLocation = resourceLocation;
