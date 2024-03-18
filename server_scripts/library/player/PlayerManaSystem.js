@@ -97,8 +97,8 @@ PlayerManaSystem.prototype.arachnidUpdateMana = function(newAmount) {
 	 * * Decrease saturation first until exhausted or 0, then decrease hunger until exhausted or 0
 	 */
 	if (totalFood > newAmountAsFood) {
-		player.saturation = SMath.clamp(newAmountAsFood - 20, 0, 20);
-		player.foodLevel = SMath.clamp(newAmountAsFood - player.saturation, 0, 20);
+		player.saturation = $Mth.clamp(newAmountAsFood - 20, 0, 20);
+		player.foodLevel = $Mth.clamp(newAmountAsFood - player.saturation, 0, 20);
 	}
 };
 
