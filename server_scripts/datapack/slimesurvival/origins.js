@@ -40,14 +40,29 @@ new Origin(
 
 
 new Origin(
-	'slimesurvival:origins/succubus.json',
+	'slimesurvival:origins/draconian.json',
 	[
 	],
 	{
-		item: 'minecraft:goat_horn'
+		item: 'minecraft:dragon_breath'
 	},
 	1,
 	3,
-	'Succubus',
-	'A demonic creature that relies on magical energy to survive.'
+	'Draconian',
+	'Once a dragon, now you are cursed to live masquerading as a human with greatly diminished powers. Eventually you may be able to recover some of your lost powers.'
+);
+
+
+
+new Origin(
+	'slimesurvival:origins/coolgin.json',
+	[
+	],
+	{
+		item: 'minecraft:soul_lantern'
+	},
+	1,
+	0,
+	'Coolgin',
+	'GRAHHHHHHHH'
 );
