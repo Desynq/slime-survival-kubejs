@@ -27,6 +27,6 @@
 		}
 	};
 
-	new ApoliPower(resourceLocation, powerJson);
+	new ApoliPower(resourceLocation, powerJson, ['slimesurvival:sludge']);
 
 })();

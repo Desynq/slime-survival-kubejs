@@ -24,10 +24,7 @@ new Origin(
 
 new Origin(
 	'slimesurvival:origins/sludge.json',
-	[
-		'slimesurvival:origins/sludge/unextinguishable',
-		'slimesurvival:origins/sludge/unintelligent',
-	],
+	[],
 	{
 		item: 'minecraft:slime_ball'
 	},
@@ -41,8 +38,7 @@ new Origin(
 
 new Origin(
 	'slimesurvival:origins/draconian.json',
-	[
-	],
+	[],
 	{
 		item: 'minecraft:dragon_breath'
 	},
@@ -56,8 +52,7 @@ new Origin(
 
 new Origin(
 	'slimesurvival:origins/coolgin.json',
-	[
-	],
+	[],
 	{
 		item: 'minecraft:soul_lantern'
 	},

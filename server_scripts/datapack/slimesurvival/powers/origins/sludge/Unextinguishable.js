@@ -1,15 +1,14 @@
 // priority: 101
 
 
+(function () {
+	let resourceLocation = 'slimesurvival:powers/origins/sludge/unextinguishable.json';
+	let powerJson = {
+		name: 'Unextinguishable',
+		description: 'You can\'t extinguish an oil fire using water. Likewise, the same logic applies to slimes and sludges.',
 
-let powerJson = {
-	name: 'Unextinguishable',
-	description: 'You can\'t extinguish an oil fire using water. Likewise, the same logic applies to slimes and sludges.',
+		type: 'slimesurvival:unextinguishable'
+	};
 
-	type: 'slimesurvival:unextinguishable'
-};
-
-new ApoliPower(
-	'slimesurvival:powers/origins/sludge/unextinguishable.json',
-	powerJson
-);
+	new ApoliPower(resourceLocation, powerJson, ['slimesurvival:sludge']);
+})();
