@@ -4,13 +4,13 @@
  * Constructs an ApoliPower instance and adds it to the global list of apoli powers.
  * @param {string} resourceLocation
  * @param {Object} json
- * @param {string[]} defaultOrigins which origins the power is automatically assigned to
+ * @param {string[]} defaultOriginIds which origins the power is automatically assigned to
  * @constructor
  */
-function ApoliPower(resourceLocation, json, defaultOrigins) {
+function ApoliPower(resourceLocation, json, defaultOriginIds) {
 	this.resourceLocation = resourceLocation;
 	this.json = json;
-	this.defaultOrigins = defaultOrigins ?? [];
+	this.defaultOriginIds = defaultOriginIds ?? [];
 
 	ApoliPower.instances.push(this);
 };
@@ -36,7 +36,7 @@ ApoliPower.prototype.getJson = function () {
  * @returns {String[]}
  */
 ApoliPower.prototype.getDefaultOrigins = function () {
-	return this.defaultOrigins;
+	return this.defaultOriginIds;
 }
 
 /**
