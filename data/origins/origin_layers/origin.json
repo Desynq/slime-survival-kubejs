@@ -5,7 +5,8 @@
 	"enabled": true,
 	"origins": [
 		"slimesurvival:arachnid",
-		"slimesurvival:sludge"
+		"slimesurvival:sludge",
+		"slimesurvival:draconian"
 	],
 	"allow_random": true,
 	"exclude_random": [
