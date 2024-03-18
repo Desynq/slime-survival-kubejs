@@ -4,5 +4,9 @@ const SlimeSurvivalClasses = {
 	$ModEntityAttributes: Java.loadClass('slimesurvival.common.registry.ModEntityAttributes'),
 };
 
+const TrinketsClasses = {
+	$TrinketsAPI: Java.loadClass('dev.emi.trinkets.api.TrinketsApi'),
+};
+
 const $ObjectiveCriteria = Java.loadClass('net.minecraft.world.scores.criteria.ObjectiveCriteria');
 const $Entity = Java.loadClass('net.minecraft.world.entity.Entity');
