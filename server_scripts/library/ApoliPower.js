@@ -4,13 +4,13 @@
  * Constructs an ApoliPower instance and adds it to the global list of apoli powers.
  * @param {string} resourceLocation
  * @param {Object} json
- * @param {string[]} origins which origins the power is automatically assigned to
+ * @param {string[]} defaultOrigins which origins the power is automatically assigned to
  * @constructor
  */
-function ApoliPower(resourceLocation, json, origins) {
+function ApoliPower(resourceLocation, json, defaultOrigins) {
 	this.resourceLocation = resourceLocation;
 	this.json = json;
-	this.origins = origins;
+	this.defaultOrigins = defaultOrigins ?? [];
 
 	ApoliPower.instances.push(this);
 };
@@ -23,11 +23,32 @@ ApoliPower.instances = [];
 
 ApoliPower.prototype.getResourceLocation = function () {
 	return this.resourceLocation;
-};
+}
 
 /**
  * @returns {Object}
  */
 ApoliPower.prototype.getJson = function () {
 	return this.json;
-};
+}
+
+/**
+ * @returns {String[]}
+ */
+ApoliPower.prototype.getDefaultOrigins = function () {
+	return this.defaultOrigins;
+}
+
+/**
+ * @returns {String}
+ */
+ApoliPower.prototype.getId = function () {
+	/**
+	 * The power identifier is made up of a namespace and path.
+	 * The identifier is derived from the resource location but omits the first directory after the namespace ('slimesurvival').
+	 * This is because the first directory serves to identify what type the identifier is ('powers' in this case).
+	 * Additionally, '.json' is omitted as identifiers don't require the .json extension to function in-game
+	 * I.e., 'slimesurvival:powers/arachnid/fragile.json' => 'slimesurvival:arachnid/fragile'
+	 */
+	return this.resourceLocation.replace(/^([^:]+):[^/]+\/([^\.]+)\.json$/, '$1:$2');
+}

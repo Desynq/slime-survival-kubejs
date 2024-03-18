@@ -17,6 +17,7 @@ function PlayerManaSystem(player) {
 
 
 
+PlayerManaSystem.prototype.DEFAULT_MAX_MANA = SlimeSurvivalClasses.$ModEntityAttributes.MAX_MANA.defaultValue;
 PlayerManaSystem.prototype.MAX_HUNGER = 20;
 PlayerManaSystem.prototype.MAX_SATURATION = 20;
 PlayerManaSystem.prototype.ARACHNID_MANA_COEFFICIENT = 5;

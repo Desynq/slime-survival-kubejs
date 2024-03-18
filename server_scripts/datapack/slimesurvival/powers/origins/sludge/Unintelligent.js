@@ -1,9 +1,11 @@
-// priority: 10
+// priority: 101
 
 (function () {
-	let format = Color.TEXT;
-	let defaultMaxMana = 100;
-	let targetMaxMana = 25;
+	const format = Color.TEXT;
+	const defaultMaxMana = SlimeSurvivalClasses.$ModEntityAttributes.MAX_MANA.defaultValue;
+	const targetMaxMana = 25;
+
+	const resourceLocation = 'slimesurvival:powers/origins/sludge/unintelligent.json';
 
 	let powerJson = {
 		name: 'Unintelligent',
@@ -25,9 +27,6 @@
 		}
 	};
 
-	new ApoliPower(
-		'slimesurvival:powers/origins/sludge/unintelligent.json',
-		powerJson
-	);
+	new ApoliPower(resourceLocation, powerJson);
 
 })();

@@ -36,3 +36,18 @@ new Origin(
 	'Sludge',
 	'Made of oil and sludges around'
 );
+
+
+
+new Origin(
+	'slimesurvival:origins/succubus.json',
+	[
+	],
+	{
+		item: 'minecraft:goat_horn'
+	},
+	1,
+	3,
+	'Succubus',
+	'A demonic creature that relies on magical energy to survive.'
+);
