@@ -3,6 +3,7 @@
 
 
 /**
+ * ! PlayerManaSystem should be renewed whenever the player's origin changes
  * @param {Internal.Player} player
  * @constructor
  */
@@ -34,7 +35,7 @@ PlayerManaSystem.prototype.getCurrentMana = function() {
 		return (player.foodLevel + player.saturation) * this.ARACHNID_MANA_COEFFICIENT;
 	}
 	return player.persistentData.current_mana ?? 0;
-};
+}
 
 /**
  * @returns {number}
@@ -44,22 +45,32 @@ PlayerManaSystem.prototype.getMaxMana = function() {
 		return (this.MAX_HUNGER + this.MAX_SATURATION) * this.ARACHNID_MANA_COEFFICIENT;
 	}
 	return this.player.attributes.getValue('slimesurvival:max_mana');
-};
+}
 
 /**
  * @returns {number}
  */
 PlayerManaSystem.prototype.getPassiveManaRegenRate = function () {
 	return this.player.attributes.getValue('slimesurvival:passive_mana_regen_rate');
-};
+}
+
 
 
 
 /**
+ * Resets the player's mana to their max mana
+ * @returns {void}
+ */
+PlayerManaSystem.prototype.resetMana = function () {
+	this.updateMana(this.getMaxMana());
+}
+
+/**
+ * Changes current mana to a different value
  * @param {number} newAmount
  * @returns {void}
  */
-PlayerManaSystem.prototype.updateMana = function(newAmount) {
+PlayerManaSystem.prototype.updateMana = function (newAmount) {
 	const { player } = this;
 	if (this.isArachnid) {
 		/**
@@ -69,13 +80,14 @@ PlayerManaSystem.prototype.updateMana = function(newAmount) {
 		return;
 	}
 	player.persistentData.current_mana = newAmount;
-};
+}
 
 /**
+ * @private
  * @param {number} newAmount
  * @returns {void}
  */
-PlayerManaSystem.prototype.arachnidUpdateMana = function(newAmount) {
+PlayerManaSystem.prototype.arachnidUpdateMana = function (newAmount) {
 	const { player } = this;
 
 	let newAmountAsFood = Math.floor(newAmount / this.ARACHNID_MANA_COEFFICIENT);
@@ -100,11 +112,7 @@ PlayerManaSystem.prototype.arachnidUpdateMana = function(newAmount) {
 		player.saturation = $Mth.clamp(newAmountAsFood - 20, 0, 20);
 		player.foodLevel = $Mth.clamp(newAmountAsFood - player.saturation, 0, 20);
 	}
-};
-
-
-
-
+}
 
 
 
@@ -122,12 +130,14 @@ PlayerManaSystem.prototype.applyPassiveManaRegen = function() {
 		currentMana = Math.min(maxMana, currentMana + passiveManaRegenRate);
 		this.updateMana(currentMana);
 	}
-};
+}
 
 
 
-
-
+/**
+ * Draws mana statistics on HUD
+ * @returns {void}
+ */
 PlayerManaSystem.prototype.displayMana = function() {
 	let currentMana = this.getCurrentMana();
 	let maxMana = this.getMaxMana();
@@ -146,4 +156,4 @@ PlayerManaSystem.prototype.displayMana = function() {
 			h: 0
 		}
 	});
-};
+}

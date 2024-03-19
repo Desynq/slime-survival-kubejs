@@ -49,11 +49,12 @@ Origin.prototype.addGeneratedPowers = function () {
 }
 
 
-
+/** @returns {String} */
 Origin.prototype.getResourceLocation = function () {
 	return this.resourceLocation;
 }
 
+/** @returns {Object} */
 Origin.prototype.getJson = function () {
 	return {
 		powers: this.defaultPowerIds,
@@ -65,6 +66,7 @@ Origin.prototype.getJson = function () {
 	}
 }
 
+/** @returns {String} */
 Origin.prototype.getId = function () {
 	/**
 	 * The origin identifier is made up of a namespace and path.
@@ -74,4 +76,54 @@ Origin.prototype.getId = function () {
 	 * I.e., 'slimesurvival:origins/arachnid.json' => 'slimesurvival:arachnid'
 	 */
 	return this.resourceLocation.replace(/^([^:]+):[^/]+\/([^\.]+)\.json$/, '$1:$2');
+}
+
+/** @returns {String} */
+Origin.prototype.getName = function () {
+	return this.name;
+}
+
+
+
+/**
+ * Registers all instances of Origin to the datapack event
+ * @param {Internal.DataPackEventJS} event
+ * @static
+ * @returns {void}
+ */
+Origin.register = function (event) {
+	Origin.instances.forEach(origin => origin.register(event))
+}
+
+/**
+ * @param {Internal.DataPackEventJS} event
+ * @returns {void}
+ */
+Origin.prototype.register = function (event) {
+	event.addJson(this.resourceLocation, this.getJson());
+	this.registerAdvancement(event);
+}
+
+/**
+ * Registers advancement for choosing the origin to the datapack event
+ * @param {Internal.DataPackEventJS} event
+ * @returns {void}
+ */
+Origin.prototype.registerAdvancement = function (event) {
+	const lowercaseName = this.getName().toLowerCase();
+
+	const resourceLocation = `slimesurvival:advancements/triggers/chose_origin/${lowercaseName}.json`; // ex: slimesurvival:advancements/chose_origin/sludge.json
+
+	const advancementJson = {
+		criteria: {}
+	}
+	advancementJson.criteria[`chose_${lowercaseName}`] = {
+		trigger: 'origins:chose_origin',
+		conditions: {
+			origin: this.getId()
+		}
+	}
+
+	event.addJson(resourceLocation, advancementJson);
+	// JsonIO.write(`kubejs/generated/chose_origin/${lowercaseName}.json`, advancementJson);
 }

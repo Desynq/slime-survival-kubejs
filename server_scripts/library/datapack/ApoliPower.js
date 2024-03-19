@@ -1,5 +1,7 @@
 // priority: 2147483647
 
+
+
 /**
  * Constructs an ApoliPower instance and adds it to the global list of apoli powers.
  * @param {string} resourceLocation
@@ -21,6 +23,9 @@ function ApoliPower(resourceLocation, json, defaultOriginIds) {
 ApoliPower.instances = [];
 
 
+/**
+ * @returns {String}
+ */
 ApoliPower.prototype.getResourceLocation = function () {
 	return this.resourceLocation;
 }
@@ -51,4 +56,24 @@ ApoliPower.prototype.getId = function () {
 	 * I.e., 'slimesurvival:powers/arachnid/fragile.json' => 'slimesurvival:arachnid/fragile'
 	 */
 	return this.resourceLocation.replace(/^([^:]+):[^/]+\/([^\.]+)\.json$/, '$1:$2');
+}
+
+
+
+/**
+ * Registers all instances of Origin to the datapack event
+ * @param {Internal.DataPackEventJS} event
+ * @static
+ * @returns {void}
+ */
+ApoliPower.register = function (event) {
+	ApoliPower.instances.forEach(power => power.register(event))
+}
+
+/**
+ * @param {Internal.DataPackEventJS} event
+ * @returns {void}
+ */
+ApoliPower.prototype.register = function (event) {
+	event.addJson(this.resourceLocation, this.getJson());
 }
