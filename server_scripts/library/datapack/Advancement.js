@@ -2,7 +2,6 @@
 
 
 
-
 /**
  * @param {String} resourceLocation
  * @param {Object} json
@@ -24,15 +23,17 @@ Advancement.instances = [];
 /**
  * @static
  * @param {Internal.ServerPlayer} player
- * @param {Internal.Advancement} advancement advancement id
+ * @param {Internal.Advancement} advancement
  * @returns {Boolean}
  */
 Advancement.revoke = function (player, advancement) {
 	const advancementProgress = player.advancements.getOrStartProgress(advancement);
-	if (!advancementProgress.hasProgress()) return false;
-	for (string in advancementProgress.completedCriteria) {
-		player.advancements.revoke(advancement, string);
+	if (!advancementProgress.hasProgress()) {
+		return false;
 	}
+	advancementProgress.completedCriteria.forEach(criteria => {
+		player.advancements.revoke(advancement, criteria);
+	});
 	return true;
 }
 
