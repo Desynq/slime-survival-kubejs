@@ -18,6 +18,7 @@
 function Origin(resourceLocation, defaultPowerIds, icon, order, impact, name, description) {
 	this.resourceLocation = resourceLocation;
 	this.defaultPowerIds = defaultPowerIds;
+	this.addDeprecatedGeneratedPowers();
 	this.addGeneratedPowers();
 	this.icon = icon;
 	this.order = order;
@@ -38,9 +39,22 @@ Origin.instances = [];
 /**
  * @returns {void}
  */
-Origin.prototype.addGeneratedPowers = function () {
+Origin.prototype.addDeprecatedGeneratedPowers = function () {
 	const originId = this.getId();
 	const matchingPowers = ApoliPower.instances.filter(power => {
+		return power.getDefaultOrigins().indexOf(originId) !== -1;
+	});
+	const matchingPowerIds = matchingPowers.map(power => power.getId());
+
+	Array.prototype.push.apply(this.defaultPowerIds, matchingPowerIds); // merge matching power ids into default powers
+}
+
+/**
+ * @returns {void}
+ */
+Origin.prototype.addGeneratedPowers = function () {
+	const originId = this.getId();
+	const matchingPowers = Power.instances.filter(power => {
 		return power.getDefaultOrigins().indexOf(originId) !== -1;
 	});
 	const matchingPowerIds = matchingPowers.map(power => power.getId());

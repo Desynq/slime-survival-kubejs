@@ -26,6 +26,16 @@ PlayerMoney.prototype.setMoney = function (newValue) {
 }
 
 
+/**
+ * @param {Number} newValue
+ * @returns {void}
+ */
+PlayerMoney.prototype.addMoney = function (newValue) {
+	let oldValue = new PlayerMoney(this.player).getMoney();
+	let finalValue = oldValue + newValue;
+
+	new PlayerMoney(this.player).setMoney(finalValue);
+}
 
 PlayerEvents.tick(event => {
 	const { player } = event;

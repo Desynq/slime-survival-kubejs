@@ -3,7 +3,7 @@
 (function () {
 	let format = Color.TEXT;
 	let defaultMaxMana = SlimeSurvivalClasses.$ModEntityAttributes.MAX_MANA.defaultValue;
-	let targetMaxMana = 200;
+	let targetMaxMana = 300;
 
 	let resourceLocation = 'slimesurvival:powers/origins/draconian/draconic-mana.json';
 
