@@ -24,5 +24,5 @@
 		.name('Soft Interior')
 		.description('Dragon flesh is relatively soft and easy to cut and damage, making armor a necessity')
 		.badges(badges)
-		.defaultOrigins('slimesurvival:draconian')
+		.defaultOrigins('slimesurvival:draconian');
 })();
