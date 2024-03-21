@@ -142,18 +142,33 @@ PlayerManaSystem.prototype.displayMana = function() {
 	let currentMana = this.getCurrentMana();
 	let maxMana = this.getMaxMana();
 
-	this.player.paint({
-		mana_display: {
-			type: 'text',
-			text: 'Mana: ' + Math.round(currentMana) + ' / ' + Math.round(maxMana),
-			color: 'blue',
-			shadow: true,
-			alignX: 'center',
-			alignY: 'bottom',
-			x: 0,
-			y: -100,
-			w: 0,
-			h: 0
-		}
-	});
+	if (currentMana <= maxMana/2) {
+		this.player.paint({
+			mana_display: {
+				type: 'text',
+				text: 'Mana: ' + Math.round(currentMana) + ' / ' + Math.round(maxMana),
+				color: 'red',
+				shadow: true,
+				alignX: 'left',
+				alignY: 'top',
+				x: 2,
+				y: 3,
+				scale: 3
+			}
+		});
+	} else {
+		this.player.paint({
+			mana_display: {
+				type: 'text',
+				text: 'Mana: ' + Math.round(currentMana) + ' / ' + Math.round(maxMana),
+				color: 'blue',
+				shadow: true,
+				alignX: 'left',
+				alignY: 'top',
+				x: 2,
+				y: 3,
+				scale: 3
+			}
+		});
+	}
 }

@@ -31,33 +31,30 @@ PlayerMoney.prototype.setMoney = function (newValue) {
  * @returns {void}
  */
 PlayerMoney.prototype.addMoney = function (newValue) {
-	let oldValue = new PlayerMoney(this.player).getMoney();
+	let oldValue = this.getMoney();
 	let finalValue = oldValue + newValue;
 
-	new PlayerMoney(this.player).setMoney(finalValue);
+	this.setMoney(finalValue);
 }
 
-PlayerEvents.tick(event => {
-	const { player } = event;
-	/** @type {Internal.PlayerKJS} */
-	const playerKJS = player;
-	const playerMoney = new PlayerMoney(player);
-
-	playerKJS.paint({
-		test: {remove: false}
-	});
-	playerKJS.paint({
-		test: {
-			type: 'text',
-			text: 'Moolah: ' + playerMoney.getMoney(),
-			color: 'green',
-			shadow: true,
-			alignX: 'center',
-			alignY: 'bottom',
-			x: 0,
-			y: -200,
-			w: 0,
-			h: 0
-		}
-	});
-});
+// PlayerEvents.tick(event => {
+// 	const { player } = event;
+// 	/** @type {Internal.PlayerKJS} */
+// 	const playerKJS = player;
+// 	const playerMoney = new PlayerMoney(player);
+	
+// 	playerKJS.paint({
+// 		test: {
+// 			type: 'text',
+// 			text: 'Moolah: ' + playerMoney.getMoney(),
+// 			color: 'green',
+// 			shadow: true,
+// 			alignX: 'center',
+// 			alignY: 'bottom',
+// 			x: 0,
+// 			y: -200,
+// 			w: 0,
+// 			h: 0
+// 		}
+// 	});
+// });
