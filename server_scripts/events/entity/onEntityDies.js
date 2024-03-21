@@ -9,11 +9,32 @@ EntityEvents.death(event => {
     // player robs entity?
     if (player) {
 
-        if (new PlayerWallet(player).hasWallet() != true) { return };
+        let playerwallet = new PlayerWallet(player);
+
+        if (!playerwallet.hasWallet()) { return };
+
+        let moneyDropped = 0;
 
         switch (entity.type) {
             case 'minecraft:zombie':
-                new PlayerWallet(player).addMoneyToWallet(1);
+                moneyDropped = Math.floor(Math.random() * 4);
+                playerwallet.changeHeldMoney(moneyDropped);
+                break;
+            case 'minecraft:skeleton':
+                moneyDropped = Math.floor(Math.random() * 2);
+                playerwallet.changeHeldMoney(moneyDropped);
+                break;
+            case 'minecraft:villager':
+                moneyDropped = Math.floor(Math.random() * 11 + 10);
+                playerwallet.changeHeldMoney(moneyDropped);
+                break;
+            case 'minecraft:witch':
+                moneyDropped = Math.floor(Math.random() * 11 + 10);
+                playerwallet.changeHeldMoney(moneyDropped);
+                break;
+            case 'minecraft:zombie_villager':
+                moneyDropped = Math.floor(Math.random() * 6 + 5);
+                playerwallet.changeHeldMoney(moneyDropped);
                 break;
             default:
                 // not a robbable mob
