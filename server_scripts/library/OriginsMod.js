@@ -71,4 +71,20 @@ OriginsLibrary.getPowerResourceValue = function(entity, powerId) {
 	return 0;
 };
 
+/**
+ * @param {Internal.entity} entity
+ * @param {string} powerId
+ * @param {Number} newValue
+ */
+OriginsLibrary.setPowerResourceValue = function(entity, powerId, newValue) {
+	const power = this.getEntityPower(entity, powerId);
+
+	if (power instanceof $VariableIntPower) {
+		power.value = newValue;
+	}
+	if (power instanceof $CooldownPower) {
+		power.cooldown = newValue;
+	}
+}
+
 // TODO: Add setPowerResourceValue(), setPowerResourceMaximum(), and setPowerResourceMinimum()
