@@ -24,7 +24,7 @@ ServerEvents.highPriorityData(event => {
  * @returns {void}
  */
 function kickPlayerAfterReload(player) {
-	if (player.creative) return;
+	if (player.tags.contains('reload_immune')) return;
 	player.connection.disconnect('Reloading data-driven assets...');
 }
 
