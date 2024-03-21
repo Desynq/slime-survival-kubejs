@@ -17,7 +17,7 @@
 	const powerType = new PowerType.Attribute().modifier(attributeModifier);
 
 	const badges = [
-		new ApoliBadgeTypes.Tooltip('origins:textures/item/porkchop.png', `Base max health is ${targetMaxHealth}`)
+		new ApoliBadgeTypes.Tooltip('minecraft:textures/item/porkchop.png', `Base max health is ${targetMaxHealth}`)
 	]
 
 	new Power('slimesurvival:powers/origins/draconian/soft-interior.json', powerType)
