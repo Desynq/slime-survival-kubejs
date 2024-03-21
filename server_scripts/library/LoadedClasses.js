@@ -8,8 +8,13 @@ const TrinketsClasses = {
 	$TrinketsAPI: Java.loadClass('dev.emi.trinkets.api.TrinketsApi'),
 };
 
+const CombatRollClasses = {
+	$EntityAttributes_CombatRoll: Java.loadClass('net.combatroll.api.EntityAttributes_CombatRoll'),
+};
+
 const $ObjectiveCriteria = Java.loadClass('net.minecraft.world.scores.criteria.ObjectiveCriteria');
 const $Entity = Java.loadClass('net.minecraft.world.entity.Entity');
 const $Mth = Java.loadClass('net.minecraft.util.Mth');
 const $Attributes = Java.loadClass('net.minecraft.world.entity.ai.attributes.Attributes');
 const $Player = Java.loadClass('net.minecraft.world.entity.player.Player');
+const $AttributeModifier = Java.loadClass('net.minecraft.world.entity.ai.attributes.AttributeModifier');

@@ -64,6 +64,15 @@ Power.prototype.defaultOrigins = function() {
 	return this;
 }
 
+/**
+ * @param {ApoliBadgeType.Tooltip} badge
+ */
+Power.prototype.addBadge = function (badge) {
+	if (!Array.isArray(this.json['badges'])) this.json['badges'] = [];
+	this.json['badges'].push(badge.getJson());
+	return this;
+}
+
 
 
 

@@ -5,8 +5,13 @@
  */
 const PowerType = {}
 
+/**
+ * @namespace
+ */
+const ApoliDataTypes = {};
 
-const PACKAGE = {
+
+const DATAGEN = {
 	powers: {
 		origins: {
 			draconian: {}
