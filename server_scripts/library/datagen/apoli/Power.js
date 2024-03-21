@@ -49,14 +49,6 @@ Power.prototype.hidden = function(boolean) {
 	return this;
 }
 /**
- * TODO: Make this an object enum thing
- * @param {Object} condition
- */
-Power.prototype.condition = function(condition) {
-	this.json['condition'] = condition;
-	return this;
-}
-/**
  * @param {Array<ApoliBadgeType.Tooltip>} badges
  */
 Power.prototype.badges = function(badges) {

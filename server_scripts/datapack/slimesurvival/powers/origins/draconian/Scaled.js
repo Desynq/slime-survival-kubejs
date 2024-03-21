@@ -1,70 +1,36 @@
 // priority: 101
 
 
-let Scaled = PACKAGE.powers.origins.draconian.Scaled = function() {
-	console.log(Scaled.resourceLocation);
-};
-
-Scaled.prototype.generateJson = function() {
-	this.json = {
-		name: Scaled.powerName,
-		description: Scaled.powerDescription,
-		badges: Scaled.badges,
-		type: Scaled.powerType
-	}
-}
-
-Scaled.resourceLocation = 'slimesurvival:powers/origins/draconian/scaled.json';
-
-Scaled.powerName = 'Scaled';
-Scaled.powerDescription = 'Armor is transmuted to scales that cover your skin.';
-Scaled.badges = [
-	{
-		type: 'origins:tooltip',
-		sprite: 'origins:textures/block/glass_pane.png',
-		text: 'Worn armor is invisible'
-	},
-	{
-		type: 'origins:tooltip',
-		sprite: 'origins:textures/item/iron_chestplate.png',
-		text: '+1 Max Health per 1 Armor'
-	}
-];
-
-Scaled.powerType = 'origins:multiple';
-
-
-
-
-
-
 (function () {
-	const format = Color.TEXT;
+	const powerType = new PowerType.Simple();
 
-	const resourceLocation = 'slimesurvival:powers/origins/draconian/scaled.json';
+	const badges = [
+		new ApoliBadgeTypes.Tooltip('minecraft:textures/item/glass_pane.png', 'Worn armor is invisible'),
+		new ApoliBadgeTypes.Tooltip('minecraft:textures/item/iron_chestplate.png', '+1 Max Health per 1 Armor')
+	];
 
-	const powerJson = {
-		name: 'Scaled',
-		description: 'Armor is transmuted to scales that cover your skin.',
-		badges: [
-			{
-				type: 'origins:tooltip',
-				sprite: 'origins:textures/block/glass_pane.png',
-				text: 'Worn armor is invisible'
-			},
-			{
-				type: 'origins:tooltip',
-				sprite: 'origins:textures/item/iron_chestplate.png',
-				text: '+1 Max Health per 1 Armor'
-			}
-		],
-
-		type: 'origins:multiple',
-		'invisible-armor': {
-
-		},
-		'': {}
-	};
-
-	new ApoliPower(resourceLocation, powerJson, ['slimesurvival:draconian']);
+	new Power('slimesurvival:powers/origins/draconian/scaled.json', powerType)
+		.name('Scaled')
+		.description('Armor is transmuted to scales that cover your skin.')
+		.badges(badges)
+		.defaultOrigins('slimesurvival:draconian');
 })();
+
+PlayerEvents.tick(event => {
+	const { player } = event;
+
+	const modifierUUID = UUID.fromString('72ca04d7-b2ae-4454-9ac8-23fa29b7fcbc');
+
+	const hasPower = OriginsLibrary.isPowerActive(player, 'slimesurvival:origins/draconian/scaled');
+	const hasModifier = player.attributes.hasModifier($Attributes.MAX_HEALTH, modifierUUID);
+	const modifierValue = hasModifier ? player.attributes.getModifierValue($Attributes.MAX_HEALTH, modifierUUID) : 0;
+	const armorValue = player.attributes.getValue($Attributes.ARMOR);
+	const valueIsDifferent = modifierValue !== armorValue;
+
+	if (hasModifier && (!hasPower || valueIsDifferent)) {
+		player.attributes.getInstance($Attributes.MAX_HEALTH).removeModifier(modifierUUID);
+	}
+	if (!hasModifier && hasPower) {
+		player.attributes.getInstance($Attributes.MAX_HEALTH).addPermanentModifier(new $AttributeModifier(modifierUUID, 'Draconian scaled power', armorValue, 'addition'));
+	}
+});
