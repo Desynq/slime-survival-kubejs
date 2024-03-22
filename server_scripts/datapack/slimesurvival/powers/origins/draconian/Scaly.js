@@ -32,5 +32,8 @@ PlayerEvents.tick(event => {
 	}
 	if (!hasModifier && hasPower) {
 		player.attributes.getInstance($Attributes.MAX_HEALTH).addPermanentModifier(new $AttributeModifier(modifierUUID, 'Draconian scaled power', armorValue, 'addition'));
+		if (player.stats.timeSinceDeath === 1) {
+			player.health = player.attributes.getValue($Attributes.MAX_HEALTH);
+		}
 	}
 });
