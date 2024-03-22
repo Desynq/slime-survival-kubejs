@@ -14,7 +14,8 @@ const ApoliDataTypes = {};
 const DATAGEN = {
 	powers: {
 		origins: {
-			draconian: {}
+			draconian: {},
+			arachnid: {}
 		}
 	}
 };

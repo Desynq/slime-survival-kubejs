@@ -10,7 +10,7 @@
 PowerType.Multiple = function () {
 	PowerType.Template.call(this, 'origins:multiple');
 }
-PowerType.Multiple.prototype.getJson = PowerType.Template.prototype.getJson;
+PowerType.Multiple.prototype = PowerType.Template.prototype;
 PowerType.Multiple.prototype.constructor = PowerType.Multiple;
 
 

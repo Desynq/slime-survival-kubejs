@@ -122,5 +122,10 @@ Power.register = function(event) {
  */
 Power.prototype.register = function(event) {
 	event.addJson(this.resourceLocation, this.getJson());
-	JsonIO.write('kubejs/generated/temp.json', this.getJson());
+}
+
+
+
+Power.prototype.debug = function () {
+	JsonIO.write('kubejs/debug.json', this.getJson());
 }
