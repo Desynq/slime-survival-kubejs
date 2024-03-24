@@ -7,7 +7,6 @@
  */
 function TrustedPlayersData(player) {
 	this.player = player;
-	this.pData = player.persistentData;
 }
 TrustedPlayersData.KEY = 'trusted_players';
 TrustedPlayersData.STRING_TAG_TYPE = 8;
@@ -19,14 +18,14 @@ TrustedPlayersData.LIST_TAG_TYPE = 9;
  * @returns {Internal.ListTag}
  */
 TrustedPlayersData.prototype.getListTag = function () {
-	return this.pData.getList(TrustedPlayersData.KEY, TrustedPlayersData.STRING_TAG_TYPE);
+	return this.player.persistentData.getList(TrustedPlayersData.KEY, TrustedPlayersData.STRING_TAG_TYPE);
 }
 
 /**
  * @param {Internal.ListTag} listTag
  */
 TrustedPlayersData.prototype.saveListTag = function (listTag) {
-	this.pData.put(TrustedPlayersData.KEY, listTag);
+	this.player.persistentData.put(TrustedPlayersData.KEY, listTag);
 }
 
 
@@ -90,9 +89,8 @@ TrustedPlayersData.prototype.listPlayers = function () {
  */
 TrustedPlayersData.suggestPlayersToAdd = function (context, builder) {
 	const { source, source: { player } } = context;
-	const data = new TrustedPlayersData(player);
+	const namesInList = new TrustedPlayersData(player).getNames();
 
-	const namesInList = data.getNames();
 	const names = source.server.playerList.players
 		.map(player => player.gameProfile.name)
 		.filter(name => namesInList.indexOf(name) === -1)
@@ -110,8 +108,7 @@ TrustedPlayersData.suggestPlayersToAdd = function (context, builder) {
  */
 TrustedPlayersData.suggestPlayersToRemove = function (context, builder) {
 	const { source, source: { player } } = context;
-	const data = new TrustedPlayersData(player);
-	const names = data.getNames();
+	const names = new TrustedPlayersData(player).getNames();
 
 	for (let name of names) {
 		builder.suggest(name);
@@ -126,11 +123,11 @@ TrustedPlayersData.suggestPlayersToRemove = function (context, builder) {
 ServerEvents.commandRegistry(event => {
 	const { commands: Commands, arguments: Arguments } = event;
 
-	let removePlayerArgument = Commands.argument('target', Arguments.STRING.create(event))
+	const removePlayerArgument = Commands.argument('target', Arguments.STRING.create(event))
 		.suggests((context, builder) => TrustedPlayersData.suggestPlayersToRemove(context, builder) )
 	;
 
-	let addPlayerArgument = Commands.argument('target', Arguments.STRING.create(event))
+	const addPlayerArgument = Commands.argument('target', Arguments.STRING.create(event))
 		.suggests((context, builder) => TrustedPlayersData.suggestPlayersToAdd(context, builder))
 	;
 
