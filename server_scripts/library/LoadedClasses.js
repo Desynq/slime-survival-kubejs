@@ -18,3 +18,5 @@ const $Mth = Java.loadClass('net.minecraft.util.Mth');
 const $Attributes = Java.loadClass('net.minecraft.world.entity.ai.attributes.Attributes');
 const $Player = Java.loadClass('net.minecraft.world.entity.player.Player');
 const $AttributeModifier = Java.loadClass('net.minecraft.world.entity.ai.attributes.AttributeModifier');
+const $NbtUtils = Java.loadClass('net.minecraft.nbt.NbtUtils');
+const $StringTag = Java.loadClass('net.minecraft.nbt.StringTag');
