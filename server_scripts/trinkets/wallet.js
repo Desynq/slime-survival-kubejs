@@ -38,7 +38,7 @@ PlayerWallet.prototype.setHeldMoney = function(newValue) {
 	let wallet = playerTrinketComponent.getEquipped('slimesurvival:wallet')[0].b;
 
 	wallet.getOrCreateTag().putInt('moneyHeld', newValue);
-	wallet.getOrCreateTagElement('display').put('Lore', [`[{"text":"Money Held: ${newValue}","italic":false,"color":"gold"}]`]);
+	wallet.getOrCreateTagElement('display').put('Lore', [`[{"text":"Money Held: $${newValue}","italic":false,"color":"gold"}]`]);
 }
 
 /**
@@ -58,20 +58,18 @@ PlayerWallet.prototype.getHeldMoney = function() {
 	}
 }
 
-
 PlayerEvents.tick(event => {
-	const { player } = event;
-	/** @type {Internal.PlayerKJS} */
-	const playerKJS = player;
-	const playerWallet = new PlayerWallet(player);
+	let player = event.player;
+	let playerWallet = new PlayerWallet(player);
 	
 	if (!playerWallet.hasWallet()) { 
-		playerKJS.paint({
+		player.paint({
 			wallet: {remove: true}
 		})
+		return;
 	};
 
-	playerKJS.paint({
+	player.paint({
 		wallet: {
 			type: 'text',
 			text: 'Wallet: $' + playerWallet.getHeldMoney(),
@@ -84,4 +82,37 @@ PlayerEvents.tick(event => {
 			scale: 2.5
 		}
 	});
+});
+
+
+/**
+ * @param {Internal.ItemStack} grabbedWallet
+ * @returns {void}
+ */
+PlayerWallet.prototype.onWalletPickup = function(grabbedWallet) {
+	let moneyToAbsorb = grabbedWallet.getOrCreateTag().getInt('moneyHeld');
+
+	if (!this.hasWallet()) { return };
+
+	this.changeHeldMoney(moneyToAbsorb);
+
+	this.player.inven
+
+	this.player.getAllSlots().forEach(item => {
+		if (item.getId() == 'slimesurvival:wallet') {
+			item.setCount(0);
+		}
+	});
+}
+
+ItemEvents.pickedUp(event => {
+	let item = event.getItem();
+
+	if (item.id != 'slimesurvival:wallet') { return };
+
+	let player = event.getPlayer();
+
+	let playerWallet = new PlayerWallet(player);
+
+	playerWallet.onWalletPickup(item);
 });
