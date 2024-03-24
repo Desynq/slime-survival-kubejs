@@ -82,6 +82,28 @@ TrustedPlayersData.prototype.listPlayers = function () {
 	this.player.tell(`Trusted Players: ${names.join(', ')}`);
 }
 
+
+
+/**
+ * @param {Internal.CommandContext<Internal.CommandSourceStack>} context
+ * @param {Internal.SuggestionsBuilder} builder
+ */
+TrustedPlayersData.suggestPlayersToAdd = function (context, builder) {
+	const { source, source: { player } } = context;
+	const data = new TrustedPlayersData(player);
+
+	const namesInList = data.getNames();
+	const names = source.server.playerList.players
+		.map(player => player.gameProfile.name)
+		.filter(name => namesInList.indexOf(name) === -1)
+	;
+
+	for (let name of names) {
+		builder.suggest(name);
+	}
+	return builder.buildFuture();
+}
+
 /**
  * @param {Internal.CommandContext<Internal.CommandSourceStack>} context
  * @param {Internal.SuggestionsBuilder} builder
@@ -100,6 +122,7 @@ TrustedPlayersData.suggestPlayersToRemove = function (context, builder) {
 
 
 
+
 ServerEvents.commandRegistry(event => {
 	const { commands: Commands, arguments: Arguments } = event;
 
@@ -107,10 +130,14 @@ ServerEvents.commandRegistry(event => {
 		.suggests((context, builder) => TrustedPlayersData.suggestPlayersToRemove(context, builder) )
 	;
 
+	let addPlayerArgument = Commands.argument('target', Arguments.STRING.create(event))
+		.suggests((context, builder) => TrustedPlayersData.suggestPlayersToAdd(context, builder))
+	;
+
 
 	event.register(Commands.literal('trust')
 		.then(Commands.literal('add')
-			.then(Commands.argument('target', Arguments.STRING.create(event))
+			.then(addPlayerArgument
 				.executes(context => helper(context, 'add'))
 			)
 		)
