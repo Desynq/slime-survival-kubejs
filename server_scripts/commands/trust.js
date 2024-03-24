@@ -164,7 +164,7 @@ ServerEvents.commandRegistry(event => {
 			return 1;
 		}
 
-		/** @type {Internal.Player} */
+		/** @type {String} */
 		const targetName = Arguments.STRING.getResult(context, 'target');
 		switch (type) {
 			case 'add':
