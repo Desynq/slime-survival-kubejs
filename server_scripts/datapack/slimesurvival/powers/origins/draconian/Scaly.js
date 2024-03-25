@@ -13,7 +13,7 @@ function DraconianScalyPower() {
 	this.power = new Power(this.resourceLocation, this.powerType)
 		.name('Scaly')
 		.description('Armor is transmuted to scales that cover your skin.')
-		.addBadge(new ApoliBadgeType.Tooltip('minecraft:textures/item/glass_pane.png',
+		.addBadge(new ApoliBadgeType.Tooltip('minecraft:textures/item/glass_bottle.png',
 			'Worn armor is invisible'
 		))
 		.addBadge(new ApoliBadgeType.Tooltip('minecraft:textures/item/iron_chestplate.png',
