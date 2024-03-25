@@ -65,9 +65,14 @@ AttributeModifierUtil.prototype.addPermanentModifier = function (value, operatio
  * @param {Boolean} shouldAdd Boolean determing whether modifier should be added.
  * @param {Number} value
  * @param {Internal.AttributeModifier$Operation_} operation
+ * @returns {Boolean} Returns whether the attribute modifier was added or not
  */
 AttributeModifierUtil.prototype.conditional = function (shouldRemove, shouldAdd, value, operation) {
 	const hasModifier = this.hasModifier;
 	if (hasModifier && shouldRemove) this.removeModifier();
-	if (!hasModifier && shouldAdd) this.addPermanentModifier(value, operation);
+	if (!hasModifier && shouldAdd) {
+		this.addPermanentModifier(value, operation)
+		return true;
+	};
+	return false;
 }
