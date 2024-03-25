@@ -1,6 +1,7 @@
 .vscode/
 probe/
-config/
 generated/
 
 debug.json
+
+config/probejs.json
