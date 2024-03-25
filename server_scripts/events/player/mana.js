@@ -6,12 +6,12 @@
  * Mana regeneration go brrr
  */
 PlayerEvents.tick(event => {
-	const {player, server} = event;
+	const { player } = event;
 
-	const playerManaSystem = new PlayerManaSystem(player);
+	const mana = new PlayerManaSystem(player);
 
-	playerManaSystem.applyPassiveManaRegen();
-	playerManaSystem.displayMana();
+	mana.applyPassiveManaRegen();
+	mana.displayMana();
 });
 
 
@@ -19,6 +19,6 @@ PlayerEvents.tick(event => {
 PlayerEvents.respawned(event => {
 	const { player } = event;
 	
-	const playerManaSystem = new PlayerManaSystem(player);
-	playerManaSystem.resetMana();
+	const mana = new PlayerManaSystem(player);
+	mana.resetMana();
 });

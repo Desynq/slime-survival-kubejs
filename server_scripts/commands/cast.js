@@ -22,7 +22,7 @@ ServerEvents.commandRegistry(event => {
 
 				switch (spellType) {
 					case 'create_string':
-						new CreateStringSpell().cast(context);
+						new CreateStringSpell().castFromCommand(context);
 						return 1;
 				};
 				return 0;

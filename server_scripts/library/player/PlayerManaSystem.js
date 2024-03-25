@@ -3,19 +3,12 @@
 
 
 /**
- * ! PlayerManaSystem should be renewed whenever the player's origin changes
  * @param {Internal.Player} player
  * @constructor
  */
 function PlayerManaSystem(player) {
 	this.player = player;
-	this.origin = OriginsLibrary.getOriginIdentifier(this.player);
-	/**
-	 * Arachnids use hunger for mana
-	 */
-	this.isArachnid = this.origin === 'slimesurvival:arachnid';
 }
-
 
 
 PlayerManaSystem.prototype.DEFAULT_MAX_MANA = SlimeSurvivalClasses.$ModEntityAttributes.MAX_MANA.defaultValue;
@@ -25,34 +18,56 @@ PlayerManaSystem.prototype.ARACHNID_MANA_COEFFICIENT = 5;
 
 
 
-
 /**
- * @returns {number}
+ * @returns {String}
  */
-PlayerManaSystem.prototype.getCurrentMana = function() {
-	const { player } = this;
-	if (this.isArachnid) {
-		return (player.foodLevel + player.saturation) * this.ARACHNID_MANA_COEFFICIENT;
+Object.defineProperty(PlayerManaSystem.prototype, 'origin', {
+	get: function () {
+		return OriginsLibrary.getOriginIdentifier(this.player);
 	}
-	return player.persistentData.current_mana ?? 0;
-}
+});
 
 /**
- * @returns {number}
+ * @returns {Boolean}
  */
-PlayerManaSystem.prototype.getMaxMana = function() {
-	if (this.isArachnid) {
-		return (this.MAX_HUNGER + this.MAX_SATURATION) * this.ARACHNID_MANA_COEFFICIENT;
+Object.defineProperty(PlayerManaSystem.prototype, 'isArachnid', {
+	get: function () {
+		return this.origin === 'slimesurvival:arachnid';
 	}
-	return this.player.attributes.getValue('slimesurvival:max_mana');
-}
+});
 
 /**
  * @returns {number}
  */
-PlayerManaSystem.prototype.getPassiveManaRegenRate = function () {
-	return this.player.attributes.getValue('slimesurvival:passive_mana_regen_rate');
-}
+Object.defineProperty(PlayerManaSystem.prototype, 'currentMana', {
+	get: function () {
+		if (this.isArachnid) {
+			return (this.player.foodLevel + this.player.saturation) * this.ARACHNID_MANA_COEFFICIENT;
+		}
+		return this.player.persistentData.getInt('current_mana');
+	}
+});
+
+/**
+ * @returns {Number}
+ */
+Object.defineProperty(PlayerManaSystem.prototype, 'maxMana', {
+	get: function () {
+		if (this.isArachnid) {
+			return (this.MAX_HUNGER + this.MAX_SATURATION) * this.ARACHNID_MANA_COEFFICIENT;
+		}
+		return this.player.attributes.getValue(SlimeSurvivalClasses.$ModEntityAttributes.MAX_MANA);
+	}
+});
+
+/**
+ * @returns {Number}
+ */
+Object.defineProperty(PlayerManaSystem.prototype, 'passiveManaRegenRate', {
+	get: function () {
+		return this.player.attributes.getValue(SlimeSurvivalClasses.$ModEntityAttributes.PASSIVE_MANA_REGEN_RATE);
+	}
+});
 
 
 
@@ -62,7 +77,7 @@ PlayerManaSystem.prototype.getPassiveManaRegenRate = function () {
  * @returns {void}
  */
 PlayerManaSystem.prototype.resetMana = function () {
-	this.updateMana(this.getMaxMana());
+	this.updateMana(this.maxMana);
 }
 
 /**
@@ -71,7 +86,6 @@ PlayerManaSystem.prototype.resetMana = function () {
  * @returns {void}
  */
 PlayerManaSystem.prototype.updateMana = function (newAmount) {
-	const { player } = this;
 	if (this.isArachnid) {
 		/**
 		 * The arachnid mana system is kind of complex, so we're just deferring it to a helper function entirely
@@ -79,7 +93,7 @@ PlayerManaSystem.prototype.updateMana = function (newAmount) {
 		this.arachnidUpdateMana(newAmount);
 		return;
 	}
-	player.persistentData.current_mana = newAmount;
+	this.player.persistentData.putInt('current_mana', newAmount);
 }
 
 /**
@@ -88,10 +102,8 @@ PlayerManaSystem.prototype.updateMana = function (newAmount) {
  * @returns {void}
  */
 PlayerManaSystem.prototype.arachnidUpdateMana = function (newAmount) {
-	const { player } = this;
-
 	let newAmountAsFood = Math.floor(newAmount / this.ARACHNID_MANA_COEFFICIENT);
-	let totalFood = player.foodLevel + player.saturation;
+	let totalFood = this.player.foodLevel + this.player.saturation;
 
 	/**
 	 * No need to perform a change in hunger if there is no change in the first place
@@ -109,8 +121,8 @@ PlayerManaSystem.prototype.arachnidUpdateMana = function (newAmount) {
 	 * * Decrease saturation first until exhausted or 0, then decrease hunger until exhausted or 0
 	 */
 	if (totalFood > newAmountAsFood) {
-		player.saturation = $Mth.clamp(newAmountAsFood - 20, 0, 20);
-		player.foodLevel = $Mth.clamp(newAmountAsFood - player.saturation, 0, 20);
+		this.player.saturation = $Mth.clamp(newAmountAsFood - 20, 0, 20);
+		this.player.foodLevel = $Mth.clamp(newAmountAsFood - this.player.saturation, 0, 20);
 	}
 }
 
@@ -120,15 +132,11 @@ PlayerManaSystem.prototype.arachnidUpdateMana = function (newAmount) {
  * @returns {void}
 */
 PlayerManaSystem.prototype.applyPassiveManaRegen = function() {
-	const passiveManaRegenRate = this.getPassiveManaRegenRate();
-	if (passiveManaRegenRate <= 0) return; // no point in regenerating mana if you can't in the first place
+	if (this.passiveManaRegenRate <= 0) return; // no point in regenerating mana if you can't in the first place
 
-	const maxMana = this.getMaxMana();
-	let currentMana = this.getCurrentMana();
-
-	if (currentMana < maxMana) {
-		currentMana = Math.min(maxMana, currentMana + passiveManaRegenRate);
-		this.updateMana(currentMana);
+	if (this.currentMana < this.maxMana) {
+		let newMana = Math.min(this.maxMana, this.currentMana + this.passiveManaRegenRate);
+		this.updateMana(newMana);
 	}
 }
 
@@ -139,14 +147,11 @@ PlayerManaSystem.prototype.applyPassiveManaRegen = function() {
  * @returns {void}
  */
 PlayerManaSystem.prototype.displayMana = function() {
-	let currentMana = this.getCurrentMana();
-	let maxMana = this.getMaxMana();
-
-	if (currentMana <= maxMana/2) {
+	if (this.currentMana <= this.maxMana / 2) {
 		this.player.paint({
 			mana_display: {
 				type: 'text',
-				text: 'Mana: ' + Math.round(currentMana) + ' / ' + Math.round(maxMana),
+				text: 'Mana: ' + Math.round(this.currentMana) + ' / ' + Math.round(this.maxMana),
 				color: 'red',
 				shadow: true,
 				alignX: 'left',
@@ -160,7 +165,7 @@ PlayerManaSystem.prototype.displayMana = function() {
 		this.player.paint({
 			mana_display: {
 				type: 'text',
-				text: 'Mana: ' + Math.round(currentMana) + ' / ' + Math.round(maxMana),
+				text: 'Mana: ' + Math.round(this.currentMana) + ' / ' + Math.round(this.maxMana),
 				color: 'blue',
 				shadow: true,
 				alignX: 'left',
