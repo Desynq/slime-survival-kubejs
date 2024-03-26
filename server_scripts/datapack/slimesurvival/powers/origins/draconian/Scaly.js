@@ -7,7 +7,9 @@ function DraconianScalyPower() {
 	this.modifierUUID = UUID.fromString('72ca04d7-b2ae-4454-9ac8-23fa29b7fcbc');
 	this.modifierName = 'Draconian scaly power'
 
-	this.powerType = new PowerType.Simple();
+	this.powerType = new PowerType.PreventFeatureRender()
+		.setFeature('armor')
+	;
 	this.resourceLocation = 'slimesurvival:powers/origins/draconian/scaly.json';
 
 	this.power = new Power(this.resourceLocation, this.powerType)
@@ -28,11 +30,6 @@ DraconianScalyPower.INSTANCE = new DraconianScalyPower();
 
 
 PlayerEvents.tick(event => {
-	function updateHealth() {
-		if (player.stats.timeSinceDeath !== 1) return;
-		player.health = player.attributes.getValue($Attributes.MAX_HEALTH);
-	}
-
 	const { player } = event;
 
 	const util = new AttributeModifierUtil(player, $Attributes.MAX_HEALTH, DraconianScalyPower.INSTANCE.modifierUUID, DraconianScalyPower.INSTANCE.modifierName);
@@ -44,7 +41,6 @@ PlayerEvents.tick(event => {
 		util.removeModifier();
 	}
 	if (!util.hasModifier && hasPower) {
-		util.addPermanentModifier(armor, 'addition');
-		updateHealth();
+		util.addPermanentModifier(armor, 'addition').updateHealth();
 	}
 });
