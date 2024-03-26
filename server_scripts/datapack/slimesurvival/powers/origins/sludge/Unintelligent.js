@@ -13,7 +13,7 @@
 		badges: [
 			{
 				type: 'origins:tooltip',
-				sprite: 'origins:textures/gui/badge/info.png',
+				sprite: 'slimesurvival:textures/item/zombie_brain.png',
 				text: `${format.red}Base max mana is ${targetMaxMana} (good luck casting any spells)`
 			}
 		],

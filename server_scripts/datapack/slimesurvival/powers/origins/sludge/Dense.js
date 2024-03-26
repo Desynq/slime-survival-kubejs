@@ -13,8 +13,8 @@
 		badges: [
 			{
 				type: 'origins:tooltip',
-				sprite: 'slimesurvival:textures/item/zombie_brain.png',
-				text: `${format.red}Base max health is ${targetMaxHealth}`
+				sprite: 'minecraft:textures/item/slime_ball.png',
+				text: `${format.blue}Base max health is ${targetMaxHealth}`
 			}
 		],
 
