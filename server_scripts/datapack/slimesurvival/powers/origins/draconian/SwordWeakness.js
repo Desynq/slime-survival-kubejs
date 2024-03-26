@@ -24,7 +24,6 @@ function DraconianXiphophobiaPower() {
 		.addBadge(new ApoliBadgeType.Tooltip('minecraft:textures/item/iron_sword.png',
 			`Damage from attackers using swords does +${this.damageModifierValue * 100}% damage`
 		))
-		.debug()
 	;
 }
 
