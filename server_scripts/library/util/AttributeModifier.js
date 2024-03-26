@@ -46,6 +46,7 @@ Object.defineProperty(AttributeModifierUtil.prototype, 'modifierValue', {
 
 AttributeModifierUtil.prototype.removeModifier = function () {
 	this.attributeInstance.removeModifier(this.modifierUUID);
+	return this;
 }
 
 /**
@@ -55,6 +56,17 @@ AttributeModifierUtil.prototype.removeModifier = function () {
 AttributeModifierUtil.prototype.addPermanentModifier = function (value, operation) {
 	const modifier = new $AttributeModifier(this.modifierUUID, this.modifierName, value, operation);
 	this.attributeInstance.addPermanentModifier(modifier);
+	return this;
+}
+
+/**
+ * Set entity's health to max health unless the entity is a player that has not recently respawned.
+ * Purpose is mostly to ensure that max health modifiers that are re-added on a player respawning update the player's health to the new max value.
+ */
+AttributeModifierUtil.prototype.updateHealth = function () {
+	if (this.entity instanceof $Player && this.entity.stats.timeSinceDeath !== 1) return;
+	this.entity.health = player.attributes.getValue($Attributes.MAX_HEALTH);
+	return this;
 }
 
 
