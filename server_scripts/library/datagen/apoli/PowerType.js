@@ -1,7 +1,7 @@
 // priority: 2147483647
 
 /**
- * @typedef {PowerType.Attribute | PowerType.ModifyAttribute | PowerType.Multiple | PowerType.Resource} PowerType
+ * @typedef {PowerType.Attribute | PowerType.ModifyAttribute | PowerType.Multiple | PowerType.Resource | PowerType.ModifyDamageTaken} PowerType
  */
 
 /**

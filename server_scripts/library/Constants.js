@@ -10,6 +10,11 @@ const PowerType = {}
  */
 const ApoliDataTypes = {};
 
+/**
+ * @namespace
+ */
+const ApoliConditionType = {};
+
 
 const DATAGEN = {
 	powers: {
