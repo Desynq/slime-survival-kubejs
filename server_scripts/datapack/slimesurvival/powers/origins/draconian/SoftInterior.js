@@ -4,7 +4,7 @@
 
 (function () {
 	const defaultMaxHealth = $Attributes.MAX_HEALTH.defaultValue;
-	const targetMaxHealth = 10;
+	const targetMaxHealth = 5;
 
 
 
