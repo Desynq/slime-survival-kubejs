@@ -29,5 +29,4 @@ Flexible.power = new Power(Flexible.resourceLocation, Flexible.powerType)
 	.addBadge(new ApoliBadgeType.Tooltip('origins:textures/gui/badge/info.png', `+${Flexible.combatRollRechargeBuff * 100}% combat roll recharge rate`))
 	.addBadge(new ApoliBadgeType.Tooltip('origins:textures/gui/badge/info.png', `+${Flexible.combatRollCountBuff} combat rolls`))
 	.defaultOrigins('slimesurvival:arachnid')
-	.debug()
 ;
