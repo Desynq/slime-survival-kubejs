@@ -64,7 +64,7 @@ PlayerEvents.tick(event => {
 	
 	if (!playerWallet.hasWallet()) { 
 		player.paint({
-			wallet: {remove: true}
+			wallet: {visible: false}
 		})
 		return;
 	};
@@ -79,7 +79,8 @@ PlayerEvents.tick(event => {
 			alignY: 'top',
 			x: 2,
 			y: 31,
-			scale: 2.5
+			scale: 2.5,
+			visible: true
 		}
 	});
 });
