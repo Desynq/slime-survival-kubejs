@@ -1,6 +1,12 @@
 // priority: 2147483646
 
 /**
+ * @typedef {ApoliConditionType.Entity_EquippedItem | ApoliConditionType.Entity_OnBlock} EntityCondition
+ */
+
+
+//#region origins:equipped_item
+/**
  * @constructor
  * @param {String} equipmentSlot
  * @param {ItemCondition} itemCondition
@@ -14,3 +20,4 @@ ApoliConditionType.Entity_EquippedItem = function (equipmentSlot, itemCondition)
 ApoliConditionType.Entity_EquippedItem.prototype.getJson = function () {
 	return this.json;
 }
+//#endregion
