@@ -1,10 +1,12 @@
-// priority: 1
+// priority: -1
 
 ServerEvents.highPriorityData(event => {
 	/** @deprecated */
 	ApoliPower.register(event);
 
 	Origin.register(event);
+
+	/** @deprecated */
 	Power.register(event);
 
 	/**

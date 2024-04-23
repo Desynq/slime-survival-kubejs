@@ -1,20 +1,31 @@
 // priority: 2147483646
 
+/**
+ * @typedef PowerV2Json
+ * @property {String} type
+ * @property {String} [name]
+ * @property {String} [description]
+ * @property {Boolean} [hidden]
+ * @property {Array<Object>} [badges]
+ */
+
 PowerV2.Builder = function () {
 	this.resourceLocation = undefined;
+	/** @type {PowerV2Json} */
 	this.json = {};
 	this.defaultOrigins = [];
 }
 
 PowerV2.Builder.prototype.setResourceLocation = function (resourceLocation) {
 	this.resourceLocation = resourceLocation;
+	return this;
 }
 
 /**
  * @param {String} name
  */
 PowerV2.Builder.prototype.setName = function (name) {
-	this.json['name'] = name;
+	this.json.name = name;
 	return this;
 }
 
@@ -22,7 +33,7 @@ PowerV2.Builder.prototype.setName = function (name) {
  * @param {String} description
  */
 PowerV2.Builder.prototype.setDescription = function (description) {
-	this.json['description'] = description;
+	this.json.description = description;
 	return this;
 }
 
@@ -30,7 +41,7 @@ PowerV2.Builder.prototype.setDescription = function (description) {
  * @param {Boolean} boolean
  */
 PowerV2.Builder.prototype.setHidden = function (boolean) {
-	this.json['hidden'] = boolean;
+	this.json.hidden = boolean;
 	return this;
 }
 
@@ -90,7 +101,7 @@ PowerV2.PowerTypeChooser.prototype.PreventFeatureRender = function () {
 /**
  * @callback AttributePowerBuilderCallback
  * @param {PowerV2.PowerTypeBuilders.Attribute} builder
- * @returns {Object} JSON-serializable object from building the callback builder
+ * @returns {AttributePowerTypeJson} JSON-serializable object from building the callback builder
  */
 
 /**
@@ -100,17 +111,5 @@ PowerV2.PowerTypeChooser.prototype.Attribute = function (attributePowerBuilderCa
 	const builder = new PowerV2.PowerTypeBuilders.Attribute();
 	const powerTypeJson = attributePowerBuilderCallback(builder);
 	mergeObject(powerTypeJson, this.json);
-	return this;
+	return this.powerBuilder;
 }
-
-new PowerV2.Builder()
-	.setPowerType().Attribute(attrPower => {
-		attrPower.setModifier(modifier => {
-			modifier.setAttribute('minecraft:generic.max_health')
-			.setOperation('addition')
-			.setValue(-5)
-			.setName('Arachnid fragile power')
-			.build()
-		})
-		.build()
-	})
