@@ -17,16 +17,16 @@ PlayerWallet.prototype.hasWallet = function() {
 }
 
 /**
- * @param {Number} newValue
+ * @param {Number} additionalValue
  * @returns {void}
  */
-PlayerWallet.prototype.changeHeldMoney = function(newValue) {
+PlayerWallet.prototype.addMoney = function(additionalValue) {
 	let playerTrinketComponent = TrinketsClasses.$TrinketsAPI.getTrinketComponent(this.player).get();
 	let wallet = playerTrinketComponent.getEquipped('slimesurvival:wallet')[0].b;
 
 	let oldMoneyHeld = wallet.getOrCreateTag().getInt('moneyHeld');
 
-	this.setHeldMoney(oldMoneyHeld + newValue);
+	this.setHeldMoney(oldMoneyHeld + additionalValue);
 }
 
 /**
@@ -95,7 +95,7 @@ PlayerWallet.prototype.onWalletPickup = function(grabbedWallet) {
 
 	if (!this.hasWallet()) { return };
 
-	this.changeHeldMoney(moneyToAbsorb);
+	this.addMoney(moneyToAbsorb);
 
 	this.player.inven
 

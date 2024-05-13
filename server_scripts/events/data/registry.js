@@ -1,5 +1,14 @@
 // priority: -1
 
+const DataRegistry = {};
+
+/**
+ * @type {Boolean}
+ */
+DataRegistry.hasReloaded = false;
+
+
+
 ServerEvents.highPriorityData(event => {
 	/** @deprecated */
 	ApoliPower.register(event);
@@ -16,7 +25,7 @@ ServerEvents.highPriorityData(event => {
 		event.addJson(advancement.getResourceLocation(), advancement.getJson())
 	});
 
-	EventFlags.hasReloaded = true;
+	DataRegistry.hasReloaded = true;
 });
 
 
@@ -32,8 +41,8 @@ function kickPlayerAfterReload(player) {
 
 ServerEvents.tick(event => {
 	const { server } = event;
-	if (EventFlags.hasReloaded) {
-		server.playerList.players.forEach(player => kickPlayerAfterReload(player));
-		EventFlags.hasReloaded = false;
+	if (DataRegistry.hasReloaded) {
+		// server.playerList.players.forEach(player => kickPlayerAfterReload(player));
+		DataRegistry.hasReloaded = false;
 	}
 });
