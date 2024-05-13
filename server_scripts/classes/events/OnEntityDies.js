@@ -48,6 +48,7 @@ OnEntityDiesEvent.prototype.diedFromPlayer = function () {
 
 	let moneyDroppedFromMob = this.getMoneyFromMob();
 	if (moneyDroppedFromMob > 0) {
+		player.tell(`You gained $${moneyDroppedFromMob} from ${this.entity.displayName.string}`)
 		playerWallet.addMoney(moneyDroppedFromMob);
 	}
 };
