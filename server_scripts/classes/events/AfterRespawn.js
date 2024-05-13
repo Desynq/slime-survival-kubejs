@@ -13,11 +13,6 @@ const PlayerRespawnedEvent = function (event) {
 	});
 };
 
-
-PlayerRespawnedEvent.prototype.getTimeSinceDeath = function () {
-	return this.player.stats.timeSinceDeath;
-}
-
 PlayerRespawnedEvent.prototype.getMaxHealth = function () {
 	return this.player.attributes.getValue($Attributes.MAX_HEALTH);
 }
