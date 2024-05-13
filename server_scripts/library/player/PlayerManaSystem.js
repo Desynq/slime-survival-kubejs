@@ -147,33 +147,17 @@ PlayerManaSystem.prototype.applyPassiveManaRegen = function() {
  * @returns {void}
  */
 PlayerManaSystem.prototype.displayMana = function() {
-	if (this.currentMana <= this.maxMana / 2) {
-		this.player.paint({
-			mana_display: {
-				type: 'text',
-				text: 'Mana: ' + Math.round(this.currentMana) + ' / ' + Math.round(this.maxMana),
-				color: 'red',
-				shadow: true,
-				alignX: 'left',
-				alignY: 'top',
-				x: 2,
-				y: 3,
-				scale: 3
-			}
-		});
-	} else {
-		this.player.paint({
-			mana_display: {
-				type: 'text',
-				text: 'Mana: ' + Math.round(this.currentMana) + ' / ' + Math.round(this.maxMana),
-				color: 'blue',
-				shadow: true,
-				alignX: 'left',
-				alignY: 'top',
-				x: 2,
-				y: 3,
-				scale: 3
-			}
-		});
-	}
+	this.player.paint({
+		mana_display: {
+			type: 'text',
+			text: 'Mana: ' + Math.round(this.currentMana) + ' / ' + Math.round(this.maxMana),
+			color: this.currentMana <= this.maxMana / 2 ? 'red' : 'blue',
+			shadow: true,
+			alignX: 'left',
+			alignY: 'top',
+			x: 10,
+			y: 25,
+			scale: 2
+		}
+	});
 }
